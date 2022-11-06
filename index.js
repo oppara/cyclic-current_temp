@@ -6,6 +6,8 @@ import http from 'http';
 import { formatInTimeZone } from 'date-fns-tz/esm';
 import got from 'got';
 import { TwitterApi } from 'twitter-api-v2';
+import formData from 'form-data';
+import Mailgun from 'mailgun.js';
 
 
 const TZ = 'Asia/Tokyo';
@@ -42,6 +44,25 @@ const tweet = async (message) => {
   await client.v1.tweet(message);
 };
 
+const mailgun = async (message) => {
+  const mailgun = new Mailgun(formData);
+  const mg = mailgun.client({
+    username: 'api',
+    key: process.env.MAILGUN_API_KEY,
+  });
+
+  const data = {
+    from: process.env.MAILGUN_FROM_ADDRESS,
+    to: process.env.MAILGUN_TO_ADDRESS,
+    subject: '[ERROR]current_temp',
+    text: message,
+  };
+
+  const domain = process.env.MAILGUN_DOMAIN;
+  const result =  await mg.messages.create(domain, data);
+  console.log(result);
+};
+
 http.createServer(async (req, res) => {
   console.log(`reg.url: ${req.url}`);
 
@@ -56,5 +77,6 @@ http.createServer(async (req, res) => {
     res.end();
   } catch (error) {
     console.log(`ERROR: ${error.message}`);
+    mailgun(error.message);
   }
 }).listen(process.env.PORT || 3000);
