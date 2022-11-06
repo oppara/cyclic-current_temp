@@ -13,23 +13,17 @@ const AMEDAS_URL_BASE = 'https://www.jma.go.jp/bosai/amedas/data/map/';
 const AMEDAS_ID_TOKYO = '44132';
 
 const getTemperature = async () => {
-  try {
-    const ymdh = formatInTimeZone(new Date(), TZ, 'yyyyMMddHH0000');
-    const url = `${AMEDAS_URL_BASE}${ymdh}.json`;
-    console.log(`url: ${url}`);
+  const ymdh = formatInTimeZone(new Date(), TZ, 'yyyyMMddHH0000');
+  const url = `${AMEDAS_URL_BASE}${ymdh}.json`;
+  console.log(`url: ${url}`);
 
-    const data = await got.get(url).json();
+  const data = await got.get(url).json();
 
-    if (AMEDAS_ID_TOKYO in data) {
-      return data[AMEDAS_ID_TOKYO]['temp'][0];
-    }
-
-    throw new Error('could not retreive tokyo data.');
-
-  } catch (error) {
-    error.message = error.response.body;
-    throw error;
+  if (AMEDAS_ID_TOKYO in data) {
+    return data[AMEDAS_ID_TOKYO]['temp'][0];
   }
+
+  throw new Error('could not retreive temperature of Tokyo.');
 };
 
 const makeMessage = (temp) => {
