@@ -72,11 +72,14 @@ http.createServer(async (req, res) => {
     console.log(`message: ${message}`);
 
     await tweet(message);
-
     res.write('done.');
-    res.end();
   } catch (error) {
     console.log(`ERROR: ${error.message}`);
+
     mailgun(error.message);
+    res.write('ERROR.');
   }
+
+  res.end();
+
 }).listen(process.env.PORT || 3000);
