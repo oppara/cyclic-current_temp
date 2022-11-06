@@ -49,9 +49,9 @@ const tweet = async (message) => {
 };
 
 http.createServer(async (req, res) => {
-  try {
-    console.log(`reg.url: ${req.url}`);
+  console.log(`reg.url: ${req.url}`);
 
+  try {
     const temp = await getTemperature();
     const message = await makeMessage(temp);
     console.log(`message: ${message}`);
