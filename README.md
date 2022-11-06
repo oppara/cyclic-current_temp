@@ -14,7 +14,7 @@ Tiny API を元に実装。
 - Method: GET
 - Path: /
 - Schedule Type: Schedule
-- Cron Expression: 10 */1 * * *
+- Cron Expression: 18 */1 * * *
 
 ### Variables
 
