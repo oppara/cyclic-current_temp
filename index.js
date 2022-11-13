@@ -29,7 +29,7 @@ const getTemperature = async () => {
 };
 
 const makeMessage = (temp) => {
-  const dt = formatInTimeZone(new Date(), TZ, 'kaaa MMM do');
+  const dt = formatInTimeZone(new Date(), TZ, 'Kaaa MMM do');
   return `${temp}℃ ${dt}`;
 };
 
