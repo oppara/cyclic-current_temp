@@ -10,12 +10,13 @@ import formData from 'form-data';
 import Mailgun from 'mailgun.js';
 
 
+const NOW = new Date();
 const TZ = 'Asia/Tokyo';
 const AMEDAS_URL_BASE = 'https://www.jma.go.jp/bosai/amedas/data/map/';
 const AMEDAS_ID_TOKYO = '44132';
 
 const getTemperature = async () => {
-  const ymdh = formatInTimeZone(new Date(), TZ, 'yyyyMMddHH0000');
+  const ymdh = formatInTimeZone(NOW, TZ, 'yyyyMMddHH0000');
   const url = `${AMEDAS_URL_BASE}${ymdh}.json`;
   console.log(`url: ${url}`);
 
@@ -29,7 +30,7 @@ const getTemperature = async () => {
 };
 
 const makeMessage = (temp) => {
-  const dt = formatInTimeZone(new Date(), TZ, 'Kaaa MMM do');
+  const dt = formatInTimeZone(NOW, TZ, 'Kaaa MMM do');
   return `${temp}℃ ${dt}`;
 };
 
