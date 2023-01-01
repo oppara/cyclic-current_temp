@@ -84,3 +84,14 @@ http.createServer(async (req, res) => {
   res.end();
 
 }).listen(process.env.PORT || 3000);
+
+
+// (async() => {
+  // const temp = await getTemperature();
+  // const message = await makeMessage(temp);
+  // console.log(`message: ${message}`);
+
+  // await tweet(message);
+  // console.log('done');
+
+// })();
