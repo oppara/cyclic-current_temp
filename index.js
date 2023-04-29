@@ -42,7 +42,7 @@ const tweet = async (message) => {
     accessSecret: process.env.ACCESS_SECRET,
   });
 
-  await client.v1.tweet(message);
+  await client.v2.tweet(message);
 };
 
 const mailgun = async (message) => {
